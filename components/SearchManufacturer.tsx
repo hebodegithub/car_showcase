@@ -10,7 +10,7 @@ import { Fragment } from "react";
 
 //选择框操作按钮 最终组件样式
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
-  //输入框组件内容
+  //输入框组件内容   输入更新setQuery  选择更新setManufacturer
   const [query, setQuery] = useState('')
 
   const filteredManufacturers =
@@ -40,7 +40,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
           {/* 文本输入框 */}
           {/* Input field for searching */}
           <ComboboxInput
-            className='search-manufacturer__input'
+            className='search-manufacturer__input '
             displayValue={(item: string) => item}
             onChange={(event) => setQuery(event.target.value)} // Update the search query when the input changes
             placeholder='Volkswagen...'
@@ -48,17 +48,19 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
 
           
           {/* Transition for displaying the options */}
+          {/* 处理选项列表的显示/隐藏动画。 */}
           <Transition
             as={Fragment} // group multiple elements without introducing an additional DOM node i.e., <></>
             leave='transition ease-in duration-100'
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
             // Reset the search query after the transition completes
-            afterLeave={() => setQuery("")}
+            afterLeave={() => setQuery("")
+            }
           >
             {/* 显示修改框 */}
             <ComboboxOptions
-              className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'
+              className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10'
               static
             >
               {/* 无值显示 ： 有值显示 */}
@@ -73,14 +75,14 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                 filteredManufacturers.map((item) => (
                   <ComboboxOption
                     key={item}
-                    className={({ active }) =>
+                    className={({ focus }) =>
                       `relative search-manufacturer__option ${
-                        active ? "bg-primary-blue text-white" : "text-gray-900"
+                    focus ? "bg-primary-blue text-white" : "text-gray-900"
                       }`
                     }
                     value={item}
                   >
-                    {({ selected, active }) => (
+                    {({ selected, focus }) => (
                       <>
                         <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
                           {item}
@@ -88,7 +90,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
 
                         {/* Show an active blue background color if the option is selected */}
                         {selected ? (
-                          <span className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active? "text-white": "text-pribg-primary-purple"}`}
+                          <span className={`absolute inset-y-0 left-0 flex items-center pl-3 ${focus? "text-white": "text-pribg-primary-purple"}`}
                           ></span>
                         ) : null}
                       </>
