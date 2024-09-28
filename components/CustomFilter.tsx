@@ -19,12 +19,13 @@ const CustomFilter = ({title, options}: CustomFilterProps) => {
   }
 
   return (
-    <div className='w-fit'>
+    <div className='w-fit '>
       <Listbox
         value={selected}
         onChange={(e) => {
           setSelected(e)
           handleUpdateParams(e)
+          // setFilter(e.value)
         }}
       >
         <div className='relative w-fit z-10'>
@@ -38,9 +39,9 @@ const CustomFilter = ({title, options}: CustomFilterProps) => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <ListboxOptions
-              className={({focus}) => `relative cursor-default select-none py-2 px-4 ${focus ? 'bg-primary-blue text-white' : 'text-gray-900'}`}
-            >
+          <ListboxOptions
+            className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+          >
               {options.map((option) => (
                 <ListboxOption
                   key={option.title}

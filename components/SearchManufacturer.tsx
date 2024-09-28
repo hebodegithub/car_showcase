@@ -9,8 +9,8 @@ import { Fragment } from "react";
 //一个下拉框 + 一个输入框   下拉首先遍历显示  点击修改最终值  输入修改最终值
 
 //选择框操作按钮 最终组件样式
-const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
-  //输入框组件内容   输入更新setQuery  选择更新setManufacturer
+const SearchManufacturer = ({ searchManufacturer, setSearchManufacturer }: SearchManufacturerProps) => {
+  //输入框组件内容   输入更新setQuery  选择更新setSelected
   const [query, setQuery] = useState('')
 
   const filteredManufacturers =
@@ -22,7 +22,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
   
   return (
     <div className='search-manufacturer'>
-      <Combobox value={manufacturer} onChange={setManufacturer}>
+      <Combobox value={searchManufacturer} onChange={setSearchManufacturer}>
         <div className='relative w-full'>
 
           {/* 车标下拉框 */}

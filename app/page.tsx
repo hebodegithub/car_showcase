@@ -1,19 +1,46 @@
+"use client"
+
 import Image from "next/image";
 import { Hero, CustomFilter, SearchBar } from '@/components'
 import { fetchCars } from "@/utils";
 import { CarCard } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
+import { ShowMore } from "@/components";
+import { HomeProps } from "@/types";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default async function Home({searchParams}) {
+export default function Home({ searchParams }: HomeProps) {
+  const router = useRouter();
+  
+  const [manufacturer, setManufacturer] = useState('');
+  const [model, setModel] = useState('');
+  const [fuel, setFuel] = useState('');
+  const [year, setYear] = useState(2022);
+  const [limit, setLimit] = useState(10);
+  const [allCars, setAllCars] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const getCars = async () => {
+    try {
+      const allCars = await fetchCars({
+        manufacturer: manufacturer || '',
+        model: model || '',
+        fuel: fuel || '',
+        year: year || 2022,
+        limit: limit || 10,
+    });
+      setAllCars(allCars);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const allCars = await fetchCars({
-    manufacturer: searchParams.manufacturer || '',
-    model: searchParams.model || '',
-    fuel: searchParams.fuel || '',
-    year: searchParams.year || 2022,
-    limit: searchParams.limit || 10,
-  });
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  useEffect(() => {
+    getCars();
+  }, [manufacturer, model, fuel, year, limit]);
+
+
+
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -24,19 +51,31 @@ export default async function Home({searchParams}) {
           </h1>
           <p>Explore the cars you might like</p>
         </div>
-        <div className="home__filter-container">
-          <SearchBar />
+        <div className="home__filter-container margin-top-12">
+          {/* //条件搜索框 */}
+          <SearchBar  />
           <CustomFilter title="fuel" options={fuels} />
           <CustomFilter title="year" options={yearsOfProduction} />
         </div>
 
-        {!isDataEmpty ?
+        {allCars.length > 0 ?
           <section>
             <div className="home__cars-wrapper">
               {allCars?.map((car) => (
                 <CarCard car={car} />
               ))}
             </div>
+
+            {loading && (<div className="mt-16 w-full flex-center">
+              <Image src="/loader.svg" alt="loader" width={50} height={50} className="object-contain" />
+            </div>)}
+
+            {/* 分页 */}
+            <ShowMore
+              pageNumber= {limit || 10}
+              isNext={(limit || 10) > allCars.length}
+              setLimit={setLimit}
+            />
           </section>
           : 
           <div className="home__error-container">
@@ -49,3 +88,5 @@ export default async function Home({searchParams}) {
   
   );
 }
+
+

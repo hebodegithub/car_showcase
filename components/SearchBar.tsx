@@ -19,17 +19,20 @@ const SearchButton = ({otherClasses} : {otherClasses: string}) => (
 
 //搜索框组件
 const SearchBar = () => {
-  const [manufacturer, setManufacturer] = useState('')
-  const [model, setModel] = useState('')
+  const [searchManufacturer, setSearchManufacturer] = useState('')
+  const [searchModel, setSearchModel] = useState('')
   const router = useRouter()
 
   //按条件搜索汽车
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if(manufacturer === '' && model === '') {
+    if(searchManufacturer === '' && searchModel === '') {
       return alert('Please fill in the search bar')
     }
-    updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase())
+    updateSearchParams(
+      searchModel.toLowerCase(),
+      searchManufacturer.toLowerCase()
+    )
   }
 
   //更新url
@@ -59,8 +62,8 @@ const SearchBar = () => {
       <div className='searchbar__item'>
         {/* 搜索框切换操作组件 */}
         <SearchManufacturer
-          manufacturer={manufacturer}
-          setManufacturer = {setManufacturer}
+          searchManufacturer={searchManufacturer}
+          setSearchManufacturer = {setSearchManufacturer}
         />
         <SearchButton otherClasses='sm:hidden' />
       </div>
@@ -75,8 +78,8 @@ const SearchBar = () => {
         <input
           type='text'
           name='model'
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
+          value={searchModel}
+          onChange={(e) => setSearchModel(e.target.value)}
           placeholder='Tiguan...'
           className='searchbar__input'
         />
