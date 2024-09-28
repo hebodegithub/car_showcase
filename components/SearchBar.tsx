@@ -65,7 +65,6 @@ const SearchBar = () => {
           searchManufacturer={searchManufacturer}
           setSearchManufacturer = {setSearchManufacturer}
         />
-        <SearchButton otherClasses='sm:hidden' />
       </div>
       <div className='searchbar__item'>
         <Image
@@ -83,7 +82,6 @@ const SearchBar = () => {
           placeholder='Tiguan...'
           className='searchbar__input'
         />
-        <SearchButton otherClasses='sm:hidden' />
       </div>
       <SearchButton otherClasses='max-sm:hidden' />
     </form>

@@ -12,7 +12,6 @@ interface CarCardProps {
 }
 
 const CarCard = ({car}: CarCardProps) => {
-  // const { city_mpg, class, combination_mpg, cylinders, displacement, drive, fuel_type, highway_mpg, make, model, transmission, year } = car;
   const {city_mpg, class: drive, make, model, transmission, year} = car;
   const carRent = calculateCarRent(city_mpg, year);
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +29,7 @@ const CarCard = ({car}: CarCardProps) => {
         </p>
         {/* 汽车图片 */}
         <div className='relative w-full h-40 my-3 object-contain'>
-          <Image src='/hero.png' alt='car model' fill priority className='object-contain' />
+          <Image src='/hero.png' alt='car model' fill priority className='object-contain'  />
         </div>
 
         {/* 下面是三个块 */}

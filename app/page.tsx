@@ -11,8 +11,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home({ searchParams }: HomeProps) {
-  const router = useRouter();
-  
+  const router = useRouter(); 
   const [manufacturer, setManufacturer] = useState('');
   const [model, setModel] = useState('');
   const [fuel, setFuel] = useState('');
@@ -20,6 +19,8 @@ export default function Home({ searchParams }: HomeProps) {
   const [limit, setLimit] = useState(10);
   const [allCars, setAllCars] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // 获取所有汽车
   const getCars = async () => {
     try {
       const allCars = await fetchCars({
@@ -28,13 +29,13 @@ export default function Home({ searchParams }: HomeProps) {
         fuel: fuel || '',
         year: year || 2022,
         limit: limit || 10,
-    });
+      });
       setAllCars(allCars);
     } catch (error) {
       console.log(error);
     }
   }
-
+  //汽车搜索条件加钩子  挂载 更新 卸载
   useEffect(() => {
     getCars();
   }, [manufacturer, model, fuel, year, limit]);
@@ -43,14 +44,17 @@ export default function Home({ searchParams }: HomeProps) {
 
   return (
     <main className="overflow-hidden">
+      {/* 头部汽车 */}
       <Hero />
       <div className="mt-12 padding-x padding-y max-width" id="discover">
+        {/* 文字介绍 */}
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">
             Car catalogue
           </h1>
           <p>Explore the cars you might like</p>
         </div>
+        {/* 下拉搜索框+过滤器 */}
         <div className="home__filter-container margin-top-12">
           {/* //条件搜索框 */}
           <SearchBar  />
@@ -62,7 +66,7 @@ export default function Home({ searchParams }: HomeProps) {
           <section>
             <div className="home__cars-wrapper">
               {allCars?.map((car) => (
-                <CarCard car={car} />
+                <CarCard car={car}  />
               ))}
             </div>
 
@@ -80,7 +84,6 @@ export default function Home({ searchParams }: HomeProps) {
           : 
           <div className="home__error-container">
             <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-            <p>{allCars?.message}</p>
           </div>
         }
       </div>
