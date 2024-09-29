@@ -9,6 +9,7 @@ import { ShowMore } from "@/components";
 import { HomeProps } from "@/types";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 export default function Home({ searchParams }: HomeProps) {
   const router = useRouter(); 
