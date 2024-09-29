@@ -4,7 +4,7 @@ import SearchManufacturer from './SearchManufacturer'
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-
+import { manufacturerProps } from '@/types'
 
 const SearchButton = ({otherClasses} : {otherClasses: string}) => (
   <button type='submit' className={`ml-3 z-10 ${otherClasses}`}>
@@ -17,9 +17,12 @@ const SearchButton = ({otherClasses} : {otherClasses: string}) => (
   </button>
 )
 
+
 //搜索框组件
-const SearchBar = () => {
+const SearchBar = ({setManufacturer, setModel}: manufacturerProps) => {
+  //修改品牌
   const [searchManufacturer, setSearchManufacturer] = useState('')
+  //修改型号
   const [searchModel, setSearchModel] = useState('')
   const router = useRouter()
 
@@ -29,30 +32,30 @@ const SearchBar = () => {
     if(searchManufacturer === '' && searchModel === '') {
       return alert('Please fill in the search bar')
     }
-    updateSearchParams(
+    //对品牌和型号进行修改
+    setManufacturer(searchManufacturer)
+    setModel(searchModel)
+
+    updateCarSearchParams(
       searchModel.toLowerCase(),
       searchManufacturer.toLowerCase()
     )
   }
 
   //更新url
-  const updateSearchParams = (model: string, manufacturer: string) => {
+  const updateCarSearchParams = (model: string, manufacturer: string) => {
     const searchParams = new URLSearchParams(window.location.search)
-
     if (manufacturer) {
       searchParams.set('manufacturer', manufacturer)
     } else {
       searchParams.delete('manufacturer')
     }
-
     if(model) {
       searchParams.set('model', model)
     } else {
       searchParams.delete('model')
     }
-
     const newPathName = `${window.location.pathname}?${searchParams.toString()}`
-
     router.push(newPathName)
   } 
 

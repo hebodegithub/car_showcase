@@ -4,12 +4,7 @@ import Image from 'next/image'
 import { Fragment } from 'react'
 import { Dialog, Transition, TransitionChild, DialogPanel } from '@headlessui/react'
 import { generateCarImageUrl } from '@/utils'
-
-interface CardDetailsProps {
-  isOpen: boolean;
-  closeModal: () => void;
-  car: CarProps;
-}
+import { CardDetailsProps } from '@/types'
 
 const CardDetails = ({isOpen, closeModal, car}: CardDetailsProps) => {
   return (

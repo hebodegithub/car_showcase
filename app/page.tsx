@@ -38,16 +38,19 @@ export default function Home({ searchParams }: HomeProps) {
   }
   //汽车搜索条件加钩子  挂载 更新 卸载
   useEffect(() => {
+    setLoading(true);
     getCars();
+    setLoading(false);
   }, [manufacturer, model, fuel, year, limit]);
 
-
+  console.log('limit', limit)
+  console.log('allCars', allCars.length)
 
   return (
     <main className="overflow-hidden">
       {/* 头部汽车 */}
       <Hero />
-      <div className="mt-12 padding-x padding-y max-width" id="discover">
+      <div className="padding-x padding-y max-width" id="discover">
         {/* 文字介绍 */}
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">
@@ -58,12 +61,13 @@ export default function Home({ searchParams }: HomeProps) {
         {/* 下拉搜索框+过滤器 */}
         <div className="home__filter-container margin-top-12">
           {/* //条件搜索框 */}
-          <SearchBar  />
-          <CustomFilter title="fuel" options={fuels} />
-          <CustomFilter title="year" options={yearsOfProduction} />
+          <SearchBar setManufacturer={setManufacturer} setModel={setModel} />
+          <CustomFilter title="fuel" options={fuels} onChange={setFuel} />
+          <CustomFilter title="year" options={yearsOfProduction} onChange={(value) => setYear(Number(value))}  />
         </div>
 
-        {allCars.length > 0 ?
+        {allCars.length > 0
+          ?
           <section>
             <div className="home__cars-wrapper">
               {allCars?.map((car) => (
@@ -78,7 +82,7 @@ export default function Home({ searchParams }: HomeProps) {
             {/* 分页 */}
             <ShowMore
               pageNumber= {limit || 10}
-              isNext={(limit || 10) > allCars.length}
+              isNext={(limit || 10) <= allCars.length}
               setLimit={setLimit}
             />
           </section>

@@ -9,7 +9,7 @@ import { ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 import { Fragment } from 'react'
 import { updateSearchParams } from '@/utils'
 
-const CustomFilter = ({title, options}: CustomFilterProps) => {
+const CustomFilter = ({title, options, onChange}: CustomFilterProps) => {
   const router = useRouter()
   const [selected, setSelected] = useState(options[0])
 
@@ -18,6 +18,7 @@ const CustomFilter = ({title, options}: CustomFilterProps) => {
     router.push(newPathName)
   }
 
+
   return (
     <div className='w-fit '>
       <Listbox
@@ -25,7 +26,7 @@ const CustomFilter = ({title, options}: CustomFilterProps) => {
         onChange={(e) => {
           setSelected(e)
           handleUpdateParams(e)
-          // setFilter(e.value)
+          onChange(e.value)
         }}
       >
         <div className='relative w-fit z-10'>

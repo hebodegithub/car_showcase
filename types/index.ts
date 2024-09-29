@@ -55,6 +55,7 @@ export interface OptionProps {
 export interface CustomFilterProps {
   title: string;
   options: OptionProps[];
+  onChange: (value: string) => void;
 }
 
 export interface ShowMoreProps {
@@ -69,4 +70,16 @@ export interface SearchParams {
   fuel: string;
   year: number;
   limit: number;
+}
+
+export interface manufacturerProps { 
+  setManufacturer: (value: string) => void
+  setModel: (value: string) => void
+}
+
+
+export interface CardDetailsProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  car: CarProps;
 }

@@ -15,11 +15,9 @@ const SearchManufacturer = ({ searchManufacturer, setSearchManufacturer }: Searc
 
   const filteredManufacturers =
     query === ''
-      ? manufacturers
-      : manufacturers.filter((item) =>
-          item.toLowerCase().includes(query.toLowerCase())
-      )
-  
+      ? manufacturers 
+      : manufacturers.filter((item) => item.toLowerCase().includes(query.toLowerCase()))
+       
   return (
     <div className='search-manufacturer'>
       <Combobox value={searchManufacturer} onChange={setSearchManufacturer}>
@@ -84,7 +82,7 @@ const SearchManufacturer = ({ searchManufacturer, setSearchManufacturer }: Searc
                   >
                     {({ selected, focus }) => (
                       <>
-                        <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
+                        <span className={`block truncate ${focus ? "font-medium" : "font-normal"}`}>
                           {item}
                         </span>
 
