@@ -40,7 +40,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 完成截图
 
-   <img src="./public/images/public/1.png" alt="image">
-   <img src="./public/images/public/2.png" alt="image">
-   <img src="./public/images/public/3.png" alt="image">
-   <img src="./public/images/public/4.png" alt="image">
+   <img src="./public/1.png" alt="image">
+   <img src="./public/2.png" alt="image">
+   <img src="./public/3.png" alt="image">
+   <img src="./public/4.png" alt="image">
