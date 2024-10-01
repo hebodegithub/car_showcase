@@ -25,6 +25,7 @@ export const ShowMore = ({ pageNumber, isNext, setLimit }: ShowMoreProps) => {
           title="Show More"
           btnType="button"
           containerStyles="bg-primary-blue text-white rounded-full"
+          isDisabled={false}
           handleClick={handleNavigation}
         />
        )}

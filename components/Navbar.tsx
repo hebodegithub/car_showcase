@@ -16,6 +16,7 @@ const Navbar = () => {
           title="sign in"
           btnType="button"
           containerStyles='text-primary-blue rounded-full bg-white min-w-[130px]'
+          isDisabled={false}
         />
       </nav>
     </header>
